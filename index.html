@@ -18,7 +18,7 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .letter-btn, .answer-btn, .dict-card, .test-option-btn {
+        .letter-btn, .answer-btn, .dict-card, .test-option-btn, .filter-btn {
             transition: all 0.2s ease-in-out;
             cursor: pointer;
         }
@@ -45,6 +45,11 @@
             background-color: #0c4a6e; /* sky-900 */
             color: white;
             box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.39); /* sky-500/39 */
+        }
+        .filter-btn.active {
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            border-color: #0284c7;
         }
         /* Estilos para el Modal */
         .modal {
@@ -91,17 +96,17 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
         <header class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-sky-900 flex justify-center items-center gap-4">
-                <svg class="w-12 h-12 md:w-14 md:h-14 text-amber-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
-                    <path d="M9 18h6"/>
-                    <path d="M10 22h4"/>
-                </svg>
+<body class="bg-gray-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-sky-900 flex justify-center items-center gap-4 drop-shadow-sm">
+                <img src="tecnobot.png" alt="Tecnobot" class="h-16 w-auto md:h-24 object-contain filter drop-shadow-md">
                 <span>Diccionario de Electricidad y Electrónica en LSC</span>
             </h1>
-            <p class="text-xl text-gray-600 mt-4">Aprende, Practica, Deletrea y Descubre Palabras en Lengua de Señas Colombiana</p>
+            <p class="text-xl text-slate-600 mt-4 font-medium">Aprende, Practica, Deletrea y Descubre Palabras en Lengua de Señas Colombiana</p>
         </header>
 
         <!-- Pestañas de Navegación -->
@@ -133,25 +138,35 @@
         </div>
 
         <!-- Secciones -->
-        <main id="home-section" class="main-container rounded-2xl shadow-lg p-6 md:p-8"></main>
-        <main id="learn-section" class="main-container rounded-2xl shadow-lg p-6 md:p-8"></main>
-        <main id="spell-section" class="main-container rounded-2xl shadow-lg p-6 md:p-8"></main>
-        <main id="dictionary-section" class="main-container rounded-2xl shadow-lg p-6 md:p-8"></main>
-        <main id="test-section" class="main-container rounded-2xl shadow-lg p-6 md:p-8"></main>
-        <main id="credits-section" class="main-container rounded-2xl shadow-lg p-6 md:p-8"></main>
+        <main id="home-section" class="main-container rounded-3xl shadow-xl p-8 min-h-[400px]"></main>
+        <main id="learn-section" class="main-container rounded-3xl shadow-xl p-8 min-h-[400px]"></main>
+        <main id="spell-section" class="main-container rounded-3xl shadow-xl p-8 min-h-[400px]"></main>
+        <main id="dictionary-section" class="main-container rounded-3xl shadow-xl p-8 min-h-[400px]"></main>
+        <main id="test-section" class="main-container rounded-3xl shadow-xl p-8 min-h-[400px]"></main>
+        <main id="credits-section" class="main-container rounded-3xl shadow-xl p-8 min-h-[400px]"></main>
 
-        <footer class="text-center mt-8 text-gray-500 text-sm">
-            <p>Señas Eléctricas - LSC</p>
+        <footer class="text-center mt-12 pb-8 text-slate-500 text-sm font-medium">
+            <p>Señas Eléctricas - LSC | Tecnoacademia - Semillero de investigación Tecnolab 4.0</p>
         </footer>
     </div>
 
     <!-- El Modal para el Diccionario -->
     <div id="video-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2 id="modal-word" class="text-3xl font-bold text-sky-800 mb-4"></h2>
-            <img id="modal-gif" class="w-full rounded-lg mb-4 border" src="" alt="Seña animada">
-            <p id="modal-definition" class="text-lg text-gray-700 text-left p-4 bg-slate-100 rounded-md border-l-4 border-sky-500"></p>
+            <div class="bg-sky-50 p-4 border-b border-sky-100">
+                <span class="close-btn">&times;</span>
+                <h2 id="modal-word" class="text-3xl font-bold text-sky-800 mt-2"></h2>
+                <span id="modal-category" class="inline-block bg-sky-200 text-sky-800 text-xs px-2 py-1 rounded-full mt-2 font-semibold uppercase tracking-wide"></span>
+            </div>
+            <div class="p-6">
+                <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden border-2 border-slate-100 shadow-inner mb-6 flex items-center justify-center">
+                    <img id="modal-gif" class="w-full h-full object-contain" src="" alt="Seña animada">
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-sky-500 text-left shadow-sm">
+                    <h3 class="font-bold text-slate-700 mb-1 text-sm uppercase">Definición:</h3>
+                    <p id="modal-definition" class="text-lg text-slate-700 leading-relaxed"></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -161,45 +176,47 @@
             // ----- DATOS -----
             const signLanguageAlphabet = { 'A': 'senas/A.png', 'B': 'senas/B.png', 'C': 'senas/C.png', 'D': 'senas/D.png', 'E': 'senas/E.png', 'F': 'senas/F.png', 'G': 'senas/G.png', 'H': 'senas/H.png', 'I': 'senas/I.png', 'J': 'senas/J.png', 'K': 'senas/K.png', 'L': 'senas/L.png', 'M': 'senas/M.png', 'N': 'senas/N.png', 'Ñ': 'senas/Ñ.png', 'O': 'senas/O.png', 'P': 'senas/P.png', 'Q': 'senas/Q.png', 'R': 'senas/R.png', 'S': 'senas/S.png', 'T': 'senas/T.png', 'U': 'senas/U.png', 'V': 'senas/V.png', 'W': 'senas/W.png', 'X': 'senas/X.png', 'Y': 'senas/Y.png', 'Z': 'senas/Z.png' };
             const letters = Object.keys(signLanguageAlphabet);
+            
+            // Categorías: Conceptos, Componentes, Herramientas, Materiales, Otros
             const dictionaryWords = [
-                { word: 'Amperio', video: 'videos/amperio.gif', definition: 'Es la cantidad de electricidad. Mide cuánta electricidad se mueve por un cable.' },
-                { word: 'Arduino Uno', video: 'videos/arduinouno.gif', definition: 'Es una placa azul pequeña. Es el cerebro de un proyecto. Controla luces, motores y sensores.' },
-                { word: 'Batería', video: 'videos/bateria.gif', definition: 'Es un objeto que guarda energía. Da fuerza a las cosas para funcionar.' },
-                { word: 'Bobina', video: 'videos/bobina.gif', definition: 'Es un alambre de metal enrollado muchas veces. Guarda energía.' },
-                { word: 'Bombillo', video: 'videos/bombillo.gif', definition: 'Es un objeto que da luz. La electricidad entra y el bombillo alumbra.' },
-                { word: 'Botón Pulsador', video: 'videos/botonpulsador.gif', definition: 'Es un botón. Si lo presionas, la electricidad pasa. Si lo sueltas, se detiene.' },
-                { word: 'Braker', video: 'videos/braker.gif', definition: 'Es un interruptor de seguridad. Si hay mucha electricidad, se apaga solo para proteger.' },
-                { word: 'Cable', video: 'videos/cable.gif', definition: 'Es el camino de la electricidad. Es un hilo de metal con plástico afuera.' },
-                { word: 'Cautín', video: 'videos/cautin.gif', definition: 'Es una herramienta caliente. Sirve para derretir metal y unir partes electrónicas.' },
-                { word: 'Circuito Abierto', video: 'videos/circuitoabierto.gif', definition: 'El camino de la electricidad está roto. La electricidad no pasa. El bombillo está apagado.' },
-                { word: 'Circuito Cerrado', video: 'videos/circuitocerrado.gif', definition: 'El camino de la electricidad está completo. La electricidad pasa. El bombillo está prendido.' },
-                { word: 'Circuito Integrado', video: 'videos/circuitointegrado.gif', definition: 'Es un chip negro con patas. Adentro tiene un circuito muy pequeño. Hace trabajos especiales.' },
-                { word: 'Circuito Mixto', video: 'videos/circuitomixto.gif', definition: 'Es una mezcla de caminos. Tiene una parte en serie y otra en paralelo.' },
-                { word: 'Circuito Paralelo', video: 'videos/circuitoparalelo.gif', definition: 'La electricidad tiene varios caminos. Si un bombillo se daña, los otros funcionan.' },
-                { word: 'Circuito Serie', video: 'videos/circuitoserie.gif', definition: 'La electricidad tiene un solo camino. Si un bombillo se daña, todos se apagan.' },
-                { word: 'Condensador', video: 'videos/condensador.gif', definition: 'Es como una batería pequeña. Guarda energía y la suelta muy rápido.' },
-                { word: 'Conector', video: 'videos/conector.gif', definition: 'Es una pieza para unir cables. Permite conectar y desconectar fácil.' },
-                { word: 'Corriente', video: 'videos/corriente.gif', definition: 'Es la electricidad en movimiento. Viaja por el cable.' },
-                { word: 'Cortocircuito', video: 'videos/cortocircuito.gif', definition: 'Es un error peligroso. La electricidad toma un camino corto y puede causar un incendio.' },
-                { word: 'Diodo Zener', video: 'videos/diodozener.gif', definition: 'Es una pieza que controla el voltaje. No deja que el voltaje suba más de un límite.' },
-                { word: 'Electricidad', video: 'videos/electricidad.gif', definition: 'Es una energía invisible. Hace funcionar los aparatos como la luz y el televisor.' },
-                { word: 'Energía', video: 'videos/energia.gif', definition: 'Es la fuerza que hace funcionar las cosas. La electricidad es energía.' },
-                { word: 'Fotoresistencia', video: 'videos/fotoresistencia.gif', definition: 'Es un sensor de luz. Frena la electricidad diferente si hay mucha o poca luz.' },
-                { word: 'Fuente de Alimentación', video: 'videos/fuentedealimentación.gif', definition: 'Es de donde sale la energía. Puede ser un enchufe o una batería.' },
-                { word: 'Fusible', video: 'videos/fusible.gif', definition: 'Es un protector. Es un alambre fino que se quema si pasa mucha electricidad para proteger el circuito.' },
-                { word: 'Interruptor', video: 'videos/interruptor.gif', definition: 'Es un botón que abre o cierra el camino de la electricidad. Prende o apaga la luz.' },
-                { word: 'LED', video: 'videos/led.gif', definition: 'Es un bombillo muy pequeño. Gasta poca energía y hay de muchos colores.' },
-                { word: 'Ley de Kirchhoff', video: 'videos/leydekirchoff.gif', definition: 'Son dos reglas para circuitos. Ayudan a saber cuánta corriente y voltaje hay en cada parte.' },
-                { word: 'Ley de Ohm', video: 'videos/leydeohm.gif', definition: 'Es una regla importante que junta Voltaje, Corriente y Resistencia (freno).' },
-                { word: 'Ley de Watt', video: 'videos/leydewatt.gif', definition: 'Es una regla para saber la potencia. Dice cuánta energía usa algo.' },
-                { word: 'Motor AC', video: 'videos/motorac.gif', definition: 'Es un motor que funciona con la electricidad del enchufe de la casa (corriente alterna).' },
-                { word: 'Motor DC', video: 'videos/motordc.gif', definition: 'Es un motor que funciona con baterías (corriente directa). Como los de los carros de juguete.' },
-                { word: 'Multímetro', video: 'videos/multimetro.gif', definition: 'Es un aparato que mide la electricidad (voltaje, corriente, ohmios).' },
-                { word: 'Ohmios', video: 'videos/ohmios.gif', definition: 'Es la medida del freno a la electricidad. Mide la resistencia.' },
-                { word: 'Potencia', video: 'videos/potencia.gif', definition: 'Mide cuánta energía usa un aparato. Más potencia significa que gasta más energía.' },
-                { word: 'Potenciómetro', video: 'videos/potenciometro.gif', definition: 'Es un control que se gira para subir o bajar la cantidad de electricidad.' },
-                { word: 'Señal Análoga', video: 'videos/senalanaloga.gif', definition: 'Es una señal que cambia suavemente, como el volumen de la música.' },
-                { word: 'Voltaje', video: 'videos/voltaje.gif', definition: 'Es la fuerza que empuja la electricidad. Mucho voltaje significa mucha fuerza.' },
+                { word: 'Amperio', category: 'Conceptos', video: 'videos/amperio.gif', definition: 'Es la cantidad de electricidad. Mide cuánta electricidad se mueve por un cable.' },
+                { word: 'Arduino Uno', category: 'Componentes', video: 'videos/arduinouno.gif', definition: 'Es una placa azul pequeña. Es el cerebro de un proyecto. Controla luces, motores y sensores.' },
+                { word: 'Batería', category: 'Componentes', video: 'videos/bateria.gif', definition: 'Es un objeto que guarda energía. Da fuerza a las cosas para funcionar.' },
+                { word: 'Bobina', category: 'Componentes', video: 'videos/bobina.gif', definition: 'Es un alambre de metal enrollado muchas veces. Guarda energía.' },
+                { word: 'Bombillo', category: 'Componentes', video: 'videos/bombillo.gif', definition: 'Es un objeto que da luz. La electricidad entra y el bombillo alumbra.' },
+                { word: 'Botón Pulsador', category: 'Componentes', video: 'videos/botonpulsador.gif', definition: 'Es un botón. Si lo presionas, la electricidad pasa. Si lo sueltas, se detiene.' },
+                { word: 'Braker', category: 'Componentes', video: 'videos/braker.gif', definition: 'Es un interruptor de seguridad. Si hay mucha electricidad, se apaga solo para proteger.' },
+                { word: 'Cable', category: 'Materiales', video: 'videos/cable.gif', definition: 'Es el camino de la electricidad. Es un hilo de metal con plástico afuera.' },
+                { word: 'Cautín', category: 'Herramientas', video: 'videos/cautin.gif', definition: 'Es una herramienta caliente. Sirve para derretir metal y unir partes electrónicas.' },
+                { word: 'Circuito Abierto', category: 'Conceptos', video: 'videos/circuitoabierto.gif', definition: 'El camino de la electricidad está roto. La electricidad no pasa. El bombillo está apagado.' },
+                { word: 'Circuito Cerrado', category: 'Conceptos', video: 'videos/circuitocerrado.gif', definition: 'El camino de la electricidad está completo. La electricidad pasa. El bombillo está prendido.' },
+                { word: 'Circuito Integrado', category: 'Componentes', video: 'videos/circuitointegrado.gif', definition: 'Es un chip negro con patas. Adentro tiene un circuito muy pequeño. Hace trabajos especiales.' },
+                { word: 'Circuito Mixto', category: 'Conceptos', video: 'videos/circuitomixto.gif', definition: 'Es una mezcla de caminos. Tiene una parte en serie y otra en paralelo.' },
+                { word: 'Circuito Paralelo', category: 'Conceptos', video: 'videos/circuitoparalelo.gif', definition: 'La electricidad tiene varios caminos. Si un bombillo se daña, los otros funcionan.' },
+                { word: 'Circuito Serie', category: 'Conceptos', video: 'videos/circuitoserie.gif', definition: 'La electricidad tiene un solo camino. Si un bombillo se daña, todos se apagan.' },
+                { word: 'Condensador', category: 'Componentes', video: 'videos/condensador.gif', definition: 'Es como una batería pequeña. Guarda energía y la suelta muy rápido.' },
+                { word: 'Conector', category: 'Materiales', video: 'videos/conector.gif', definition: 'Es una pieza para unir cables. Permite conectar y desconectar fácil.' },
+                { word: 'Corriente', category: 'Conceptos', video: 'videos/corriente.gif', definition: 'Es la electricidad en movimiento. Viaja por el cable.' },
+                { word: 'Cortocircuito', category: 'Conceptos', video: 'videos/cortocircuito.gif', definition: 'Es un error peligroso. La electricidad toma un camino corto y puede causar un incendio.' },
+                { word: 'Diodo Zener', category: 'Componentes', video: 'videos/diodozener.gif', definition: 'Es una pieza que controla el voltaje. No deja que el voltaje suba más de un límite.' },
+                { word: 'Electricidad', category: 'Conceptos', video: 'videos/electricidad.gif', definition: 'Es una energía invisible. Hace funcionar los aparatos como la luz y el televisor.' },
+                { word: 'Energía', category: 'Conceptos', video: 'videos/energia.gif', definition: 'Es la fuerza que hace funcionar las cosas. La electricidad es energía.' },
+                { word: 'Fotoresistencia', category: 'Componentes', video: 'videos/fotoresistencia.gif', definition: 'Es un sensor de luz. Frena la electricidad diferente si hay mucha o poca luz.' },
+                { word: 'Fuente de Alimentación', category: 'Herramientas', video: 'videos/fuentedealimentación.gif', definition: 'Es de donde sale la energía. Puede ser un enchufe o una batería.' },
+                { word: 'Fusible', category: 'Componentes', video: 'videos/fusible.gif', definition: 'Es un protector. Es un alambre fino que se quema si pasa mucha electricidad para proteger el circuito.' },
+                { word: 'Interruptor', category: 'Componentes', video: 'videos/interruptor.gif', definition: 'Es un botón que abre o cierra el camino de la electricidad. Prende o apaga la luz.' },
+                { word: 'LED', category: 'Componentes', video: 'videos/led.gif', definition: 'Es un bombillo muy pequeño. Gasta poca energía y hay de muchos colores.' },
+                { word: 'Ley de Kirchhoff', category: 'Conceptos', video: 'videos/leydekirchoff.gif', definition: 'Son dos reglas para circuitos. Ayudan a saber cuánta corriente y voltaje hay en cada parte.' },
+                { word: 'Ley de Ohm', category: 'Conceptos', video: 'videos/leydeohm.gif', definition: 'Es una regla importante que junta Voltaje, Corriente y Resistencia (freno).' },
+                { word: 'Ley de Watt', category: 'Conceptos', video: 'videos/leydewatt.gif', definition: 'Es una regla para saber la potencia. Dice cuánta energía usa algo.' },
+                { word: 'Motor AC', category: 'Componentes', video: 'videos/motorac.gif', definition: 'Es un motor que funciona con la electricidad del enchufe de la casa (corriente alterna).' },
+                { word: 'Motor DC', category: 'Componentes', video: 'videos/motordc.gif', definition: 'Es un motor que funciona con baterías (corriente directa). Como los de los carros de juguete.' },
+                { word: 'Multímetro', category: 'Herramientas', video: 'videos/multimetro.gif', definition: 'Es un aparato que mide la electricidad (voltaje, corriente, ohmios).' },
+                { word: 'Ohmios', category: 'Conceptos', video: 'videos/ohmios.gif', definition: 'Es la medida del freno a la electricidad. Mide la resistencia.' },
+                { word: 'Potencia', category: 'Conceptos', video: 'videos/potencia.gif', definition: 'Mide cuánta energía usa un aparato. Más potencia significa que gasta más energía.' },
+                { word: 'Potenciómetro', category: 'Componentes', video: 'videos/potenciometro.gif', definition: 'Es un control que se gira para subir o bajar la cantidad de electricidad.' },
+                { word: 'Señal Análoga', category: 'Conceptos', video: 'videos/senalanaloga.gif', definition: 'Es una señal que cambia suavemente, como el volumen de la música.' },
+                { word: 'Voltaje', category: 'Conceptos', video: 'videos/voltaje.gif', definition: 'Es la fuerza que empuja la electricidad. Mucho voltaje significa mucha fuerza.' },
             ];
             const spellingTestWords = ['Cable', 'Batería', 'Bobina', 'Bombillo', 'Potencia', 'Energía', 'Voltaje', 'Amperio', 'Corriente', 'Ohmios', 'Cautín', 'LED', 'Fusible', 'Braker'];
 
@@ -221,27 +238,32 @@
 
             function setupHomeSection() {
                 sections.home.innerHTML = `
-                    <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
-                        <div class="lg:w-1/2 flex-shrink-0">
-                            <img src="home.png" alt="Bienvenida a Señas Eléctricas" class="rounded-2xl shadow-2xl w-full h-auto object-cover">
+                    <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12 h-full">
+                        <div class="lg:w-1/2 flex-shrink-0 transform hover:scale-105 transition-transform duration-500">
+                            <img src="home.png" alt="Bienvenida a Señas Eléctricas" class="rounded-2xl shadow-2xl w-full h-auto object-cover border-4 border-white">
                         </div>
-                        <div class="lg:w-1/2 text-left">
-                            <h2 class="text-3xl font-bold text-sky-800 mb-4">Bienvenido al Diccionario de señas de electricidad y electrónica - LSC</h2>
-                            <div class="text-lg text-gray-700 space-y-4">
+                        <div class="lg:w-1/2 text-left space-y-6">
+                            <div class="inline-block bg-sky-100 text-sky-800 text-sm font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-2">Educación Inclusiva</div>
+                            <h2 class="text-4xl font-extrabold text-slate-800 mb-4 leading-tight">Bienvenido al Diccionario de señas de electricidad y electrónica - LSC</h2>
+                            <div class="text-lg text-slate-600 space-y-4 leading-relaxed">
                                 <p>
-                                    Esta es una herramienta creada para apoyar el proceso de formación de los estudiantes sordos en el área de electrónica.
+                                    Esta es una herramienta innovadora creada para apoyar el proceso de formación profesional de los estudiantes sordos en el apasionante mundo de la electrónica.
                                 </p>
                                 <p>
-                                    Nuestro objetivo es servir como una herramienta en el proceso de formación, permitiendo a los instructores del SENA y demás instituciones educativas hacer los ajustes razonables para realizar una formación verdaderamente incluyente y garantizar un aprendizaje significativo.
+                                    Nuestro objetivo es servir como un puente en el proceso de formación, permitiendo a los instructores del SENA y demás instituciones educativas realizar los ajustes razonables necesarios para una formación verdaderamente incluyente y garantizar un aprendizaje significativo para todos.
                                 </p>
                             </div>
+                            <button onclick="document.getElementById('dictionary-tab').click()" class="mt-4 bg-sky-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-sky-700 transition-all transform hover:-translate-y-1 flex items-center gap-2">
+                                Explorar Diccionario
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
                         </div>
                     </div>
                 `;
             }
 
             function setupLearnSection() {
-                sections.learn.innerHTML = `<div id="sign-display" class="text-center mb-8 p-4 bg-sky-50/50 rounded-xl sign-image-container flex flex-col justify-center items-center border-2 border-dashed border-gray-300"><p id="instruction-text" class="text-gray-500 text-lg">Selecciona una letra para ver su seña</p><h2 id="current-letter" class="text-8xl font-bold text-sky-600 my-4" style="display: none;"></h2><img id="sign-image" src="" alt="Representación de la seña" class="max-w-full h-auto max-h-64 rounded-lg object-contain" style="display: none;"></div><div id="letter-grid" class="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 gap-2 md:gap-3 text-center"></div>`;
+                sections.learn.innerHTML = `<div id="sign-display" class="text-center mb-8 p-6 bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-center items-center min-h-[350px]"><p id="instruction-text" class="text-slate-400 text-xl font-light">Selecciona una letra para ver su seña</p><h2 id="current-letter" class="text-9xl font-black text-sky-500 my-4 drop-shadow-sm" style="display: none;"></h2><div class="relative w-full max-w-xs aspect-square"><img id="sign-image" src="" alt="Representación de la seña" class="w-full h-full object-contain" style="display: none;"></div></div><div id="letter-grid" class="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 gap-3 text-center"></div>`;
                 const letterGrid = sections.learn.querySelector('#letter-grid');
                 const signImage = sections.learn.querySelector('#sign-image');
                 const currentLetterDisplay = sections.learn.querySelector('#current-letter');
@@ -251,7 +273,7 @@
                     const button = document.createElement('button');
                     button.textContent = letter;
                     button.dataset.letter = letter;
-                    button.className = 'letter-btn p-3 bg-white text-sky-800 border-2 border-sky-200 font-bold text-xl rounded-lg shadow-sm hover:bg-sky-100';
+                    button.className = 'letter-btn p-3 bg-white text-slate-600 border-2 border-slate-100 font-bold text-xl rounded-xl shadow-sm hover:border-sky-200 hover:text-sky-600 hover:bg-sky-50 transition-all';
                     letterGrid.appendChild(button);
                 });
                 letterGrid.addEventListener('click', (e) => {
@@ -262,66 +284,208 @@
                         currentLetterDisplay.style.display = 'block';
                         signImage.src = signLanguageAlphabet[letter];
                         signImage.style.display = 'block';
-                        if (lastClickedButton) lastClickedButton.classList.remove('bg-sky-600', 'text-white', 'border-sky-600');
-                        e.target.classList.add('bg-sky-600', 'text-white', 'border-sky-600');
+                        if (lastClickedButton) lastClickedButton.className = 'letter-btn p-3 bg-white text-slate-600 border-2 border-slate-100 font-bold text-xl rounded-xl shadow-sm hover:border-sky-200 hover:text-sky-600 hover:bg-sky-50 transition-all';
+                        e.target.className = 'letter-btn p-3 bg-sky-600 text-white border-2 border-sky-600 font-bold text-xl rounded-xl shadow-md transition-all transform scale-105';
                         lastClickedButton = e.target;
                     }
                 });
             }
 
             function setupSpellSection() {
-                sections.spell.innerHTML = `<div class="text-center"><h2 class="text-2xl font-bold mb-4">Deletreador de Palabras</h2><p class="text-gray-600 mb-6">Escribe una palabra o frase para ver la secuencia de señas.</p><div class="flex flex-col sm:flex-row gap-2 justify-center"><input type="text" id="word-input" placeholder="Escribe aquí..." class="w-full sm:w-80 text-lg border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition"><button id="spell-btn" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-md">Deletrear</button></div></div><div id="spell-output" class="mt-8 p-4 bg-sky-50/50 rounded-xl min-h-[200px] flex flex-wrap justify-center items-center gap-4 border-2 border-dashed border-gray-300"><p id="spell-instruction" class="text-gray-500">La secuencia de señas aparecerá aquí.</p></div>`;
+                sections.spell.innerHTML = `
+                    <div class="text-center max-w-2xl mx-auto">
+                        <h2 class="text-3xl font-bold mb-2 text-slate-800">Deletreador de Palabras</h2>
+                        <p class="text-slate-500 mb-8">Escribe una palabra o frase para ver la secuencia de señas.</p>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center relative">
+                            <input type="text" id="word-input" placeholder="Escribe aquí..." class="w-full text-lg border-2 border-slate-200 rounded-xl p-4 focus:ring-4 focus:ring-sky-100 focus:border-sky-400 transition outline-none shadow-sm text-slate-700">
+                            <button id="spell-btn" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-xl text-lg shadow-lg transition-all active:scale-95 flex-shrink-0">
+                                Deletrear
+                            </button>
+                        </div>
+                        <div class="mt-6 flex justify-center">
+                             <button id="play-sequence-btn" class="hidden items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                Reproducir Secuencia
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="player-container" class="hidden mt-8 mb-8 max-w-md mx-auto">
+                        <div class="bg-white rounded-3xl shadow-xl border-4 border-sky-100 p-6 text-center">
+                            <div class="relative aspect-square mb-4 flex items-center justify-center bg-slate-50 rounded-2xl overflow-hidden">
+                                <img id="player-image" src="" class="w-full h-full object-contain" alt="Seña">
+                                <div id="player-overlay" class="absolute inset-0 flex items-center justify-center bg-black/10 hidden"></div>
+                            </div>
+                            <div class="text-6xl font-black text-sky-600" id="player-letter">-</div>
+                        </div>
+                    </div>
+
+                    <div id="spell-output" class="mt-12 p-8 bg-white rounded-3xl min-h-[200px] flex flex-wrap justify-center items-center gap-6 border border-slate-100 shadow-inner">
+                        <p id="spell-instruction" class="text-slate-400 text-lg italic">La secuencia de señas aparecerá aquí.</p>
+                    </div>
+                `;
+                
                 const wordInput = sections.spell.querySelector('#word-input');
                 const spellBtn = sections.spell.querySelector('#spell-btn');
                 const spellOutput = sections.spell.querySelector('#spell-output');
+                const playBtn = sections.spell.querySelector('#play-sequence-btn');
+                const playerContainer = sections.spell.querySelector('#player-container');
+                const playerImage = sections.spell.querySelector('#player-image');
+                const playerLetter = sections.spell.querySelector('#player-letter');
+                let currentSequence = [];
+
                 spellBtn.addEventListener('click', () => {
                     const word = wordInput.value.toUpperCase().replace(/ /g, '');
                     spellOutput.innerHTML = ''; 
+                    currentSequence = [];
+                    
                     if (word.trim() === '') {
-                       spellOutput.innerHTML = `<p class="text-gray-500">La secuencia de señas aparecerá aquí.</p>`;
-                        return;
+                       spellOutput.innerHTML = `<p class="text-slate-400 text-lg italic">La secuencia de señas aparecerá aquí.</p>`;
+                       playBtn.classList.add('hidden');
+                       playerContainer.classList.add('hidden');
+                       return;
                     }
-                    for (const char of word) {
+
+                    const cleanWord = removeAccents(word);
+
+                    for (let i = 0; i < cleanWord.length; i++) {
+                        const char = cleanWord[i];
+                        const displayChar = word[i];
+
                         if (signLanguageAlphabet[char]) {
+                            currentSequence.push({ char: char, display: displayChar, src: signLanguageAlphabet[char] });
+
                             const signContainer = document.createElement('div');
-                            signContainer.className = 'flex flex-col items-center p-2 bg-white rounded-lg shadow-sm';
+                            signContainer.className = 'flex flex-col items-center p-3 bg-white rounded-2xl shadow-md border border-slate-100 hover:scale-110 transition-transform duration-300';
                             const letterText = document.createElement('p');
-                            letterText.className = 'font-bold text-2xl text-sky-700';
-                            letterText.textContent = char;
+                            letterText.className = 'font-bold text-2xl text-sky-700 mb-2';
+                            letterText.textContent = displayChar;
                             const signImg = document.createElement('img');
                             signImg.src = signLanguageAlphabet[char];
-                            signImg.className = 'w-24 h-24 object-contain';
+                            signImg.className = 'w-20 h-20 object-contain';
                             signContainer.append(letterText, signImg);
                             spellOutput.appendChild(signContainer);
                         }
                     }
+                    
+                    if (currentSequence.length > 0) {
+                        playBtn.classList.remove('hidden');
+                        playBtn.classList.add('flex');
+                    }
+                });
+
+                playBtn.addEventListener('click', async () => {
+                    playerContainer.classList.remove('hidden');
+                    playBtn.disabled = true;
+                    playBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    
+                    playerContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    for (const item of currentSequence) {
+                        playerImage.src = item.src;
+                        playerLetter.textContent = item.display;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                    
+                    playBtn.disabled = false;
+                    playBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    playerLetter.textContent = "Fin";
+                    setTimeout(() => {
+                         if(!playBtn.disabled) playerContainer.classList.add('hidden');
+                    }, 2000);
                 });
             }
 
             function setupDictionarySection() {
-                sections.dictionary.innerHTML = `<div class="text-center"><h2 class="text-2xl font-bold mb-4">Diccionario de Palabras</h2><p class="text-gray-600 mb-6">Haz clic en una palabra para ver su seña en grande.</p><div class="flex justify-center mb-8"><input type="text" id="search-input" placeholder="Buscar palabra..." class="w-full sm:w-96 text-lg border-2 border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition"></div></div><div id="dictionary-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>`;
+                sections.dictionary.innerHTML = `
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold mb-2 text-slate-800">Diccionario de Palabras</h2>
+                        <p class="text-slate-500">Haz clic en una palabra para ver su seña en grande.</p>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                        <div class="relative w-full md:w-96">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <input type="text" id="search-input" placeholder="Buscar palabra..." class="pl-10 w-full text-base border border-slate-200 rounded-xl p-3 focus:ring-4 focus:ring-sky-100 focus:border-sky-400 transition outline-none text-slate-700 bg-slate-50">
+                        </div>
+                        <div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto no-scrollbar" id="category-filters">
+                            <button class="filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-sky-600 text-white border border-sky-600 whitespace-nowrap" data-category="all">Todos</button>
+                            <button class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 whitespace-nowrap" data-category="Conceptos">Conceptos</button>
+                            <button class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 whitespace-nowrap" data-category="Componentes">Componentes</button>
+                            <button class="filter-btn px-4 py-2 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 whitespace-nowrap" data-category="Herramientas">Herramientas</button>
+                        </div>
+                    </div>
+
+                    <div id="dictionary-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+                `;
+                
                 const searchInput = sections.dictionary.querySelector('#search-input');
                 const dictionaryGrid = sections.dictionary.querySelector('#dictionary-grid');
-                const modal = document.getElementById('video-modal'), modalGif = document.getElementById('modal-gif'), modalWord = document.getElementById('modal-word'), modalDefinition = document.getElementById('modal-definition'), closeModalBtn = document.querySelector('.close-btn');
+                const filterBtns = sections.dictionary.querySelectorAll('.filter-btn');
+                const modal = document.getElementById('video-modal'), modalGif = document.getElementById('modal-gif'), modalWord = document.getElementById('modal-word'), modalDefinition = document.getElementById('modal-definition'), modalCategory = document.getElementById('modal-category'), closeModalBtn = document.querySelector('.close-btn');
+                
+                let activeCategory = 'all';
 
-                function renderDictionary(filter = '') {
+                function renderDictionary(filterText = '') {
                     dictionaryGrid.innerHTML = '';
-                    const filteredWords = dictionaryWords.filter(item => item.word.toLowerCase().includes(filter.toLowerCase())).sort((a, b) => a.word.localeCompare(b.word));
+                    const filteredWords = dictionaryWords.filter(item => {
+                        const matchesSearch = item.word.toLowerCase().includes(filterText.toLowerCase());
+                        const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
+                        return matchesSearch && matchesCategory;
+                    }).sort((a, b) => a.word.localeCompare(b.word));
+
+                    if (filteredWords.length === 0) {
+                        dictionaryGrid.innerHTML = `
+                            <div class="col-span-full flex flex-col items-center justify-center py-12 text-slate-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-lg">No se encontraron palabras.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
                     filteredWords.forEach(item => {
                         const card = document.createElement('div');
-                        card.className = 'dict-card bg-white rounded-xl shadow-md overflow-hidden flex flex-col';
+                        card.className = 'dict-card bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden flex flex-col group';
+                        
                         const videoContainer = document.createElement('div');
-                        videoContainer.className = 'w-full h-48 bg-gray-200 flex items-center justify-center pointer-events-none';
+                        videoContainer.className = 'relative w-full h-48 bg-slate-50 flex items-center justify-center pointer-events-none group-hover:bg-sky-50 transition-colors';
+                        
                         const previewGif = document.createElement('img');
                         previewGif.src = item.video;
-                        previewGif.className = 'w-full h-full object-contain'; 
+                        previewGif.className = 'w-full h-full object-contain p-4 opacity-90 group-hover:opacity-100 transition-opacity'; 
+                        
+                        const playOverlay = document.createElement('div');
+                        playOverlay.className = 'absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300';
+                        playOverlay.innerHTML = '<div class="bg-sky-600/90 text-white rounded-full p-3 shadow-lg transform scale-75 group-hover:scale-100 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg></div>';
+
                         videoContainer.appendChild(previewGif);
+                        videoContainer.appendChild(playOverlay);
+                        
+                        const infoContainer = document.createElement('div');
+                        infoContainer.className = 'p-4 text-center pointer-events-none border-t border-slate-100';
+
+                        const categoryTag = document.createElement('span');
+                        categoryTag.className = 'inline-block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1';
+                        categoryTag.textContent = item.category || 'General';
+
                         const wordText = document.createElement('p');
-                        wordText.className = 'text-center text-xl font-bold text-sky-800 p-4 pointer-events-none';
+                        wordText.className = 'text-lg font-bold text-slate-700 group-hover:text-sky-600 transition-colors';
                         wordText.textContent = item.word;
-                        card.append(videoContainer, wordText);
+                        
+                        infoContainer.appendChild(categoryTag);
+                        infoContainer.appendChild(wordText);
+                        
+                        card.append(videoContainer, infoContainer);
                         card.addEventListener('click', () => {
                             modalWord.textContent = item.word;
+                            modalCategory.textContent = item.category || 'General';
                             modalGif.src = item.video;
                             modalDefinition.textContent = item.definition;
                             modal.style.display = "flex";
@@ -329,6 +493,16 @@
                         dictionaryGrid.appendChild(card);
                     });
                 }
+
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        filterBtns.forEach(b => b.className = 'filter-btn px-4 py-2 rounded-full text-sm font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 whitespace-nowrap');
+                        btn.className = 'filter-btn active px-4 py-2 rounded-full text-sm font-bold bg-sky-600 text-white border border-sky-600 whitespace-nowrap shadow-md';
+                        activeCategory = btn.dataset.category;
+                        renderDictionary(searchInput.value);
+                    });
+                });
+
                 function closeModal() { 
                     modal.style.display = "none"; 
                     modalGif.src = "";
@@ -345,23 +519,33 @@
                     <div class="text-center">
                         <h2 class="text-3xl font-bold mb-8 text-sky-800">Créditos y Agradecimientos</h2>
                     </div>
-                    <div class="space-y-8 text-lg text-gray-700 max-w-3xl mx-auto bg-white/50 p-8 rounded-xl">
+                    <div class="space-y-8 text-lg text-gray-700 max-w-3xl mx-auto bg-white/50 p-8 rounded-xl shadow-sm border border-white/60">
                         <div>
                             <h3 class="font-bold text-xl text-sky-700 mb-2">Señas del Abecedario</h3>
                             <p>Las señas utilizadas en la sección de "Abecedario" son una referencia del material educativo proporcionado por el <strong class="font-semibold">Instituto Nacional para Sordos (INSOR)</strong> de Colombia.</p>
                         </div>
-                        <div class="border-t pt-6">
+                        <div class="border-t border-slate-200 pt-6">
                             <h3 class="font-bold text-xl text-sky-700 mb-2">Señas del Diccionario</h3>
                             <p>Las señas de las palabras en el diccionario son una valiosa recopilación de diferentes autores y de la comunidad. Agradecemos especialmente las contribuciones y creaciones de <strong class="font-semibold">Ramiro Jiménez Giraldo</strong>.</p>
                         </div>
-                        <div class="border-t pt-6">
+                        <div class="border-t border-slate-200 pt-6">
                             <h3 class="font-bold text-xl text-sky-700 mb-2">Modelos Lingüísticos</h3>
                             <p>Las personas que ves realizando las señas en los videos son:</p>
-                            <ul class="list-disc list-inside mt-2 space-y-1">
+                            <ul class="list-disc list-inside mt-2 space-y-1 ml-4">
                                 <li class="font-semibold">Ramiro Jiménez Giraldo</li>
                                 <li class="font-semibold">Leíber Josué Martínez Terán</li>
                             </ul>
-                            <p class="mt-2">Ambos, aprendices del <strong class="font-semibold">SENA - Regional Caldas</strong>, cuyo esfuerzo y dedicación han hecho posible este proyecto.</p>
+                            <p class="mt-2 text-sm text-slate-500">Aprendices del <strong class="font-semibold">SENA - Regional Caldas</strong>.</p>
+                        </div>
+                        <div class="border-t border-slate-200 pt-6">
+                            <h3 class="font-bold text-xl text-sky-700 mb-2">Intérpretes de Lengua de Señas</h3>
+                            <ul class="list-disc list-inside mt-2 space-y-1 ml-4">
+                                <li class="font-semibold">Carlos Andres Orozco Orozco</li>
+                                <li class="font-semibold">Beatriz Helena Sanchez Salgado</li>
+                            </ul>
+                        </div>
+                         <div class="border-t border-slate-200 pt-6 text-center">
+                            <p class="font-semibold text-slate-500">Tecnoacademia - Semillero de investigación Tecnolab 4.0</p>
                         </div>
                     </div>`;
             }
@@ -373,11 +557,28 @@
             function setupTestSection() {
                 sections.test.innerHTML = `<div id="test-container" class="text-center">
                     <div id="test-start-screen">
-                        <h2 class="text-2xl font-bold mb-4">Elige un modo de práctica</h2>
-                        <p class="text-gray-600 mb-6">Pon a prueba tus conocimientos del abecedario o tu habilidad para deletrear palabras.</p>
-                        <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-6">
-                            <button id="start-letter-test-btn" class="test-option-btn w-full md:w-64 bg-sky-600 hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-lg text-xl shadow-lg">Test de Abecedario</button>
-                            <button id="start-spelling-test-btn" class="test-option-btn w-full md:w-64 bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 px-6 rounded-lg text-xl shadow-lg">Test de Deletreo</button>
+                        <h2 class="text-3xl font-bold mb-4 text-slate-800">Elige un modo de práctica</h2>
+                        <p class="text-slate-500 mb-8 max-w-md mx-auto">Pon a prueba tus conocimientos del abecedario o tu habilidad para deletrear palabras técnicas.</p>
+                        <div class="flex flex-col md:flex-row justify-center items-center gap-6 mt-6">
+                            <button id="start-letter-test-btn" class="test-option-btn group w-full md:w-72 bg-white border-2 border-sky-100 hover:border-sky-300 p-6 rounded-3xl shadow-sm hover:shadow-lg transition-all text-left flex items-center gap-4">
+                                <div class="bg-sky-100 p-3 rounded-2xl text-sky-600 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-slate-800 group-hover:text-sky-700">Test Abecedario</h3>
+                                    <p class="text-sm text-slate-400">Identifica letras individuales</p>
+                                </div>
+                            </button>
+                            
+                            <button id="start-spelling-test-btn" class="test-option-btn group w-full md:w-72 bg-white border-2 border-emerald-100 hover:border-emerald-300 p-6 rounded-3xl shadow-sm hover:shadow-lg transition-all text-left flex items-center gap-4">
+                                <div class="bg-emerald-100 p-3 rounded-2xl text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M17 4v16M3 8h4M3 16h4M17 8h4M17 16h4"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-slate-800 group-hover:text-emerald-700">Test Deletreo</h3>
+                                    <p class="text-sm text-slate-400">Forma palabras completas</p>
+                                </div>
+                            </button>
                         </div>
                     </div>
                     <div id="test-question-screen" style="display: none;"></div>
@@ -439,21 +640,43 @@
 
                 function renderQuestionUI(correctAnswer, options) {
                     let questionHTML = `
-                        <div class="flex justify-between items-center mb-4 text-lg">
-                            <span class="font-semibold">Pregunta: ${currentQuestionIndex + 1}/${TOTAL_QUESTIONS}</span>
-                            <span class="font-semibold text-green-600">Aciertos: ${score}</span>
-                            <button id="exit-test-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-lg shadow-sm text-base">Salir</button>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex flex-col items-start">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Progreso</span>
+                                <span class="font-bold text-xl text-slate-700">Pregunta ${currentQuestionIndex + 1}<span class="text-slate-400 text-base font-normal">/${TOTAL_QUESTIONS}</span></span>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Puntaje</span>
+                                <span class="font-bold text-xl text-emerald-500">${score}</span>
+                            </div>
                         </div>`;
 
                     if (testType === 'letter') {
-                        questionHTML += `<div class="mb-8 p-4 bg-sky-50/50 rounded-xl sign-image-container flex justify-center items-center border-2 border-dashed border-gray-300"><img src="${signLanguageAlphabet[correctAnswer]}" class="max-w-full h-auto max-h-64 rounded-lg object-contain"></div>`;
+                        questionHTML += `
+                        <div class="mb-8 p-8 bg-white rounded-3xl shadow-lg border-2 border-sky-50 flex justify-center items-center min-h-[300px]">
+                            <img src="${signLanguageAlphabet[correctAnswer]}" class="max-w-full h-64 object-contain drop-shadow-md">
+                        </div>`;
                     } else {
                         const wordToSpell = removeAccents(correctAnswer);
-                        const signsHTML = wordToSpell.toUpperCase().replace(/ /g, '').split('').map(char => `<img src="${signLanguageAlphabet[char]}" class="h-24 w-24 object-contain bg-white rounded-md shadow-sm p-1">`).join('');
-                        questionHTML += `<div class="mb-8 p-4 bg-sky-50/50 rounded-xl flex justify-center items-center flex-wrap gap-2 border-2 border-dashed border-gray-300 min-h-[150px]">${signsHTML}</div>`;
+                        const signsHTML = wordToSpell.toUpperCase().replace(/ /g, '').split('').map(char => `
+                            <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100">
+                                <img src="${signLanguageAlphabet[char]}" class="h-20 w-20 object-contain">
+                            </div>`).join('');
+                        questionHTML += `
+                        <div class="mb-8 p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 flex justify-center items-center flex-wrap gap-3 min-h-[200px]">
+                            ${signsHTML}
+                        </div>`;
                     }
-                    const optionsHTML = options.map(opt => `<button data-answer="${opt}" class="answer-btn p-4 bg-white border-2 border-gray-200 text-gray-800 font-bold text-xl rounded-lg shadow-sm">${opt}</button>`).join('');
-                    questionHTML += `<div class="grid grid-cols-2 gap-4">${optionsHTML}</div><p id="feedback-text" class="mt-4 text-xl font-bold h-8"></p>`;
+                    
+                    const optionsHTML = options.map(opt => `<button data-answer="${opt}" class="answer-btn p-5 bg-white border-2 border-slate-100 text-slate-700 font-bold text-xl rounded-2xl shadow-sm hover:border-sky-300 hover:bg-sky-50 transition-all">${opt}</button>`).join('');
+                    
+                    questionHTML += `
+                        <div class="grid grid-cols-2 gap-4 mb-6">${optionsHTML}</div>
+                        <div class="flex justify-between items-center">
+                            <p id="feedback-text" class="text-xl font-bold h-8"></p>
+                            <button id="exit-test-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-600 font-bold py-2 px-6 rounded-xl transition-colors">Salir</button>
+                        </div>
+                    `;
                     
                     questionScreen.innerHTML = questionHTML;
                     questionScreen.querySelectorAll('.answer-btn').forEach(btn => btn.addEventListener('click', selectAnswer, { once: true }));
@@ -466,16 +689,19 @@
                     const answerButtons = questionScreen.querySelectorAll('.answer-btn');
                     answerButtons.forEach(btn => {
                         btn.disabled = true;
-                        if (btn.dataset.answer === correctAnswer) btn.classList.add('bg-green-500', 'text-white', 'border-green-500');
+                        if (btn.dataset.answer === correctAnswer) btn.classList.replace('border-slate-100', 'border-emerald-500');
+                        btn.classList.add(btn.dataset.answer === correctAnswer ? 'bg-emerald-100' : 'opacity-50');
+                        if (btn.dataset.answer === correctAnswer) btn.classList.add('text-emerald-700');
                     });
+                    
                     if (selectedAnswer === correctAnswer) {
                         score++;
                         feedbackText.textContent = '¡Correcto!';
-                        feedbackText.className = 'mt-4 text-xl font-bold h-8 text-green-600';
+                        feedbackText.className = 'text-xl font-bold h-8 text-emerald-600';
                     } else {
                         feedbackText.textContent = 'Incorrecto';
-                        feedbackText.className = 'mt-4 text-xl font-bold h-8 text-red-600';
-                        e.target.classList.add('bg-red-500', 'text-white', 'border-red-500');
+                        feedbackText.className = 'text-xl font-bold h-8 text-red-500';
+                        e.target.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
                     }
                     currentQuestionIndex++;
                     setTimeout(loadNextQuestion, 1500);
@@ -483,7 +709,26 @@
 
                 function showResults() {
                     questionScreen.style.display = 'none';
-                    resultsScreen.innerHTML = `<h2 class="text-2xl font-bold mb-4">¡Test finalizado!</h2><p class="text-gray-600 text-3xl mb-6">Tu puntuación: <span class="font-bold text-sky-700">${score} / ${TOTAL_QUESTIONS}</span></p><button id="restart-test-btn" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-md">Volver a Elegir Test</button>`;
+                    const percentage = (score / TOTAL_QUESTIONS) * 100;
+                    let message = "";
+                    let colorClass = "";
+                    
+                    if (percentage === 100) { message = "¡Excelente!"; colorClass = "text-emerald-500"; }
+                    else if (percentage >= 70) { message = "¡Muy bien!"; colorClass = "text-sky-500"; }
+                    else { message = "Sigue practicando"; colorClass = "text-amber-500"; }
+
+                    resultsScreen.innerHTML = `
+                        <div class="text-center py-10">
+                            <h2 class="text-4xl font-black mb-2 ${colorClass}">${message}</h2>
+                            <p class="text-slate-400 text-lg mb-8">Has completado el test</p>
+                            
+                            <div class="bg-white rounded-3xl shadow-lg border-2 border-slate-50 p-8 max-w-xs mx-auto mb-10">
+                                <div class="text-6xl font-black ${colorClass} mb-2">${score}<span class="text-3xl text-slate-300">/${TOTAL_QUESTIONS}</span></div>
+                                <div class="text-slate-500 font-medium uppercase tracking-wide text-sm">Aciertos</div>
+                            </div>
+
+                            <button id="restart-test-btn" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-4 px-10 rounded-2xl text-xl shadow-lg shadow-sky-200 transition-all transform hover:-translate-y-1">Volver al Menú</button>
+                        </div>`;
                     resultsScreen.style.display = 'block';
                     resultsScreen.querySelector('#restart-test-btn').addEventListener('click', returnToTestMenu);
                 }
@@ -501,6 +746,3 @@
     </script>
 </body>
 </html>
-
-
-
